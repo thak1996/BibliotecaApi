@@ -1,0 +1,36 @@
+services:
+  biblioteca-api:
+    build: .
+    container_name: biblioteca-api
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sql-server;Database=BibliotecaDB;User=sa;Password=SuaSenha123!;TrustServerCertificate=true
+    depends_on:
+      - sql-server
+    networks:
+      - biblioteca-network
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql-server
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=SuaSenha123!
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+    networks:
+      - biblioteca-network
+
+volumes:
+  sql-data:
+
+networks:
+  biblioteca-network:
+    driver: bridge
