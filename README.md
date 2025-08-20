@@ -58,6 +58,8 @@ POST /api/livros
 	"anoPublicacao": 1899,
 	"editora": "Editora Exemplo",
 	"quantidadeDisponivel": 10,
+	"dataCadastro": "2025-08-20T10:00:00",
+	"ativo": true
 }
 ```
 
