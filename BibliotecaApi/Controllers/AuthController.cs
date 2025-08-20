@@ -19,15 +19,15 @@ namespace BibliotecaAPI.Controllers
             try
             {
                 var token = await _authService.Login(loginDto);
-                return Ok(new { Token = token, Message = "Login realizado com sucesso" });
+                return Ok(new { token, message = "Login realizado com sucesso" });
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { ex.Message });
+                return Unauthorized(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Erro interno do servidor", Details = ex.Message });
+                return StatusCode(500, new { message = "Erro interno do servidor", details = ex.Message });
             }
         }
 
@@ -40,15 +40,25 @@ namespace BibliotecaAPI.Controllers
             try
             {
                 var usuario = await _authService.Register(createDto);
-                return CreatedAtAction(nameof(Register), new { id = usuario.Id }, usuario);
+                return CreatedAtAction(nameof(Register), new { id = usuario.Id }, new
+                {
+                    id = usuario.Id,
+                    nomeCompleto = usuario.NomeCompleto,
+                    ultimoNome = usuario.UltimoNome,
+                    ru = usuario.RU,
+                    curso = usuario.Curso,
+                    dataCriacao = usuario.DataCriacao,
+                    ativo = usuario.Ativo,
+                    message = "Usuário registrado com sucesso"
+                });
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new { ex.Message });
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Message = "Erro interno do servidor", Details = ex.Message });
+                return StatusCode(500, new { message = "Erro interno do servidor", details = ex.Message });
             }
         }
     }
