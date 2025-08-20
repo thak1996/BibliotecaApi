@@ -18,7 +18,7 @@ namespace BibliotecaAPI.Services
         public async Task<string> Login(UsuarioLoginDto loginDto)
         {
             var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.UltimoNome.Equals(loginDto.UltimoNome, StringComparison.CurrentCultureIgnoreCase) && u.Ativo);
+                .FirstOrDefaultAsync(u => u.UltimoNome.ToLower() == loginDto.UltimoNome.ToLower() && u.Ativo);
 
             if (usuario == null || !BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash))
             {
