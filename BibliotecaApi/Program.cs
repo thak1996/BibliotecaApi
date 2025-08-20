@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Biblioteca API",
         Version = "v1",
-        Description = "API REST para gerenciamento de biblioteca - Login por último nome"
+        Description = "API REST para gerenciamento de biblioteca"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
