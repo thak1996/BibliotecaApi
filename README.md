@@ -29,6 +29,12 @@ Permite cadastro, consulta e autenticação de usuários e livros. Utiliza Entit
 docker-compose up -d
 ```
 
+### Caso realize alterações no código
+
+```pwsh
+docker-compose up -d --build
+```
+
 O serviço será iniciado em segundo plano. Para parar:
 
 ```pwsh
