@@ -75,6 +75,16 @@ namespace BibliotecaAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<LivroResponseDto>> PostLivro(LivroCreateDto livroDto)
         {
+            if (!string.IsNullOrWhiteSpace(livroDto.ISBN))
+            {
+                var isbnLower = livroDto.ISBN.ToLower();
+                var livroExistente = await _context.Livros.FirstOrDefaultAsync(l => l.ISBN.ToLower() == isbnLower);
+                if (livroExistente != null)
+                {
+                    return Conflict(new { Message = "Já existe um livro cadastrado com este ISBN." });
+                }
+            }
+
             var livro = new Livro
             {
                 Titulo = livroDto.Titulo,

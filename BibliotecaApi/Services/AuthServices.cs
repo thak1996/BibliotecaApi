@@ -32,7 +32,7 @@ namespace BibliotecaAPI.Services
         {
             var ultimoNome = ExtrairUltimoNome(createDto.NomeCompleto);
             var existingUser = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.UltimoNome.Equals(ultimoNome, StringComparison.CurrentCultureIgnoreCase));
+                .FirstOrDefaultAsync(u => u.UltimoNome.ToLower() == ultimoNome.ToLower());
 
             if (existingUser != null)
             {
@@ -78,11 +78,11 @@ namespace BibliotecaAPI.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
+                Subject = new ClaimsIdentity(
+                [
                     new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                     new Claim(ClaimTypes.Name, ultimoNome)
-                }),
+                ]),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
