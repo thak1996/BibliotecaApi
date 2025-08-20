@@ -23,15 +23,6 @@ Permite cadastro, consulta e autenticação de usuários e livros. Utiliza Entit
 - .NET 8 SDK
 - Docker
 
-### Executando localmente
-
-```pwsh
-dotnet build
-dotnet run --project BibliotecaApi/BibliotecaApi.csproj
-```
-
-A API estará disponível em `http://localhost:5000` (ou porta definida em `launchSettings.json`).
-
 ### Executando com Docker
 
 ```pwsh
@@ -51,8 +42,8 @@ Autenticação:
 ```http
 POST /api/auth/login
 {
-	"email": "usuario@exemplo.com",
-	"senha": "123456"
+	"email": "santos",
+	"senha": "4298019"
 }
 ```
 
@@ -62,7 +53,11 @@ Cadastro de livro:
 POST /api/livros
 {
 	"titulo": "Dom Casmurro",
-	"autor": "Machado de Assis"
+	"autor": "Machado de Assis",
+	"isbn": "978-85-7522-635-1",
+	"anoPublicacao": 1899,
+	"editora": "Editora Exemplo",
+	"quantidadeDisponivel": 10,
 }
 ```
 
@@ -71,7 +66,3 @@ POST /api/livros
 - BCrypt.Net-Next (hash de senha)
 - Microsoft.AspNetCore.Authentication.JwtBearer (JWT)
 - Entity Framework Core
-
-## Observações
-
-Para dúvidas sobre padrões ou arquitetura, consulte `.github/copilot-instructions.md`.
